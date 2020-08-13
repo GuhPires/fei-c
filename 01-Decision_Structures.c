@@ -2,6 +2,9 @@
  * Leia 2 valores reais (x e y), que devem representar as coordenadas de um ponto em um plano. Então, 
  * determine a que quadrante (Q1, Q2, Q3 ou Q4) o ponto pertence ou se está sobre um dos eixos cartesianos 
  * ou na origem (x = y = 0).
+ * 
+ * Author: GuhPires
+ * Visit: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>
