@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <math.h>
 
-float calc_delta(a, b, c) {
+float calc_delta(float a, float b, float c) {
   return (b * b) - (4 * a * c);
 }
 

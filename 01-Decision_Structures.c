@@ -9,7 +9,7 @@
 
 #include <stdio.h>
 
-char define_quadrant(x_coord, y_coord) {
+char define_quadrant(float x_coord, float y_coord) {
   char q;
   if (x_coord > 0 && y_coord > 0) {
     q = '1';
