@@ -4,3 +4,7 @@
 
 # Code Runner files
 tempCodeRunnerFile.c
+
+# OS and Other files
+.DS_Store
+*.zip
