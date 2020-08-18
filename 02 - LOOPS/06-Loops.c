@@ -12,13 +12,13 @@
  * Saída: 0 1 1 2 3
  * 
  * NOTE:
- * Iria user dynamic programming (caching na verdade) para os primeiros 10 números da sequência de
+ * Iria usar dynamic programming (caching na verdade) para os primeiros 10 números da sequência de
  * Fibonacci, porém em C temos que declarar o tamanho total do array além de lidar com o buffer
  * overflow (duplicando o tamanho do array se este fosse menor do que o desejado). Por conta disso,
  * usei apenas a recursividade.
  * 
  * IMPORTANT:
- * Este código é razoável ate n = 40, mais que isso o call stack pode retornar um erro.
+ * Este código é razoável até n = 40, mais que isso o call stack pode retornar um erro.
  * 
  * Author: GuhPires
  * Visit: https://github.com/GuhPires/fei-c
