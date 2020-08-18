@@ -3,6 +3,7 @@
  * n*2 linhas de saída serão apresentadas na execução do programa, seguindo a lógica do exemplo
  * abaixo.
  * 
+ * EXEMPLO:
  * Entrada: 5
  * 
  * Saída:
