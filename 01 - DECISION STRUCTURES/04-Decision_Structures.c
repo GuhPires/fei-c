@@ -10,8 +10,8 @@
  * Então, calcule e imprima o valor a ser pago pelo cliente sabendo-se que o preço do litro da gasolina é
  * R$ 4,39 e, do álcool, R$ 3,19.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  **********************************************************************************************************/
 
 #include <stdio.h>

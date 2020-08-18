@@ -9,8 +9,8 @@
  * b. Exemplo 2: Para sacar a quantia de 399 reais, o programa fornece três notas de 100, uma nota de 50,
  * quatro notas de 10, uma nota de 5 e quatro notas de 1.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  **********************************************************************************************************/
 
 #include <stdio.h>

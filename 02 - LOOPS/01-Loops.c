@@ -5,8 +5,8 @@
  * considerando que o primeiro número digitado é n1, segundo n2, ...
  * media = (n1+n2+n3+n4+n5) / 5
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>

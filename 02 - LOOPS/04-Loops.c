@@ -7,8 +7,8 @@
  * distância do último ponto de volta ao primeiro ponto. Em seguida, ele deve exibir o perímetro
  * total.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>

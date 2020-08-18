@@ -12,8 +12,8 @@
  * Leia o salário do funcionário e calcule e mostre o novo salário, bem como o valor de reajuste ganho e o
  * índice reajustado, em percentual.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  **********************************************************************************************************/
 
 #include <stdio.h>

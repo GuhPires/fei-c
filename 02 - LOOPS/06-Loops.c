@@ -20,8 +20,8 @@
  * IMPORTANT:
  * Este código é razoável até n = 40, mais que isso o call stack pode retornar um erro.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>

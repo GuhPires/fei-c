@@ -18,8 +18,8 @@
  *        5 25 125
  *        5 26 126
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>

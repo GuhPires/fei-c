@@ -9,8 +9,8 @@
  * c. Se o delta calculado for igual a zero a equação possui apenas uma raiz real; informe-a ao usuário;
  * d. Se o delta for positivo, a equação possui duas raiz reais; informe-as ao usuário;
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  **********************************************************************************************************/
 
 #include <stdio.h>

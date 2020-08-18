@@ -8,8 +8,8 @@
  * no grupo. Em seguida, seu programa deve exibir o custo total para o grupo. O custo deve ser exibido
  * usando duas casas decimais.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>

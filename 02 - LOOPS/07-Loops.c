@@ -3,8 +3,8 @@
  * primo ou não. Mostre uma mensagem de número primo ou de número não primo. Um número é primo
  * quando é divisível apenas pelo número um e por ele mesmo.
  * 
- * Author: GuhPires
- * Visit: https://github.com/GuhPires/fei-c
+ * AUTHOR: GuhPires
+ * VISIT: https://github.com/GuhPires/fei-c
  *************************************************************************************************/
 
 #include <stdio.h>
