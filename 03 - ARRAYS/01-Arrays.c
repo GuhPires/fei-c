@@ -16,7 +16,7 @@ int main (void) {
   for(int i = 0; i < 10; i++) {
     printf("Digite o %dº número: ", i + 1);
     scanf("%d", &nums[i]);
-    if(nums[i] > higher[1]) {
+    if(nums[i] > higher[1] || i == 0) {
       higher[0] = i;
       higher[1] = nums[i];
     }
