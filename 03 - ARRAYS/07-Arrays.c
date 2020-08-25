@@ -14,7 +14,7 @@
 int main(void) {
   // Usando o tempo como Seed pra função rand() 
   srand(time(0));
-  int random[10], higher_50[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lst_higher_idx = 0;
+  int random[10], higher_50[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, pos[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, lst_higher_idx = 0;
 
   printf("Gerando números aleatórios...\n");
   for(int i = 0; i < 10; i++) {
@@ -22,6 +22,7 @@ int main(void) {
     int num = (rand() % 101);
     if (num > 50) {
       higher_50[lst_higher_idx] = num;
+      pos[lst_higher_idx] = i;
       lst_higher_idx++;
     }
     random[i] = num;
@@ -32,9 +33,8 @@ int main(void) {
   } else {
     printf("Os números gerados maiores que 50 são...\n");
     for(int i = 0; i < lst_higher_idx; i++) {
-      printf("%d ", higher_50[i]);
+      printf("%d na posição %d\n", higher_50[i], pos[i]);
     }
-    printf("\n");
   }
   return 0;
 }
