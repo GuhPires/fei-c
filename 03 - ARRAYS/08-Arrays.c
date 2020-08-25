@@ -21,7 +21,7 @@ int main(void) {
     random[i] = num;
   }
 
-  // "Dumb ordering" O(n^2)
+  // "Dumb sort" O(n^2)
   for(int i = 0; i < 20; i++) {
     for(int j = 0; j < 20; j++) {
       if(random[i] < random[j]) {
