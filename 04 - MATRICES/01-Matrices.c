@@ -24,7 +24,7 @@ int main(void) {
     }
   }
 
-  printf("A matriz digitada: \n");
+  printf("A matriz gerada: \n");
   for(int i = 0; i < 10; i++) {
     printf(" | ");
     for(int j = 0; j < 15; j++) {
@@ -35,9 +35,11 @@ int main(void) {
   
   printf("\nApenas a primeira coluna:\n");
   for(int i = 0; i < 1; i++){
+    printf(" | ");
     for(int j = 0; j < 15; j++){
-      printf("Elemento: %d\n", m[i][j]);
+      printf(" %d ", m[i][j]);
     }
+    printf(" | \n");
   }
 
   return 0;
