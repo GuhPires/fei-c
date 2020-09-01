@@ -29,18 +29,18 @@ int main(void) {
 
   printf("A matriz gerada: \n");
   for(int i = 0; i < 10; i++) {
-    printf(" | ");
+    printf(" |");
     for(int j = 0; j < 5; j++) {
-      printf("\t%d\t", A[i][j]);
+      printf("\t%d", A[i][j]);
     }
     printf("\t|\n");
   }
 
   printf("\nA transposta da matriz gerada: \n");
   for(int i = 0; i < 5; i++) {
-    printf(" | ");
+    printf(" |");
     for(int j = 0; j < 10; j++) {
-      printf("\t%d\t", tA[i][j]);
+      printf("\t%d", tA[i][j]);
     }
     printf("\t|\n");
   }

@@ -24,7 +24,7 @@ int main(void) {
 
   printf("Soma dos elementos ímpares de cada linha:\n");
   for(int i = 0; i < 4; i++) {
-    printf("Elemento %d: %d\n", i + 1, a[i]);
+    printf("Linha %d: %d\n", i + 1, a[i]);
   }
 
   return 0;

@@ -21,14 +21,14 @@ int main(void) {
 
   printf("A matriz digitada: \n");
   for(int i = 0; i < 3; i++) {
-    printf(" | ");
+    printf(" |");
     for(int j = 0; j < 3; j++) {
-      printf(" %d ", m[i][j]);
+      printf("\t%d", m[i][j]);
       if(i == j) {
         main_diagonal += m[i][j];
       }
     }
-    printf("\n");
+    printf("\t|\n");
   }
 
   printf("A soma da Diagonal Principal é: %d\n", main_diagonal);

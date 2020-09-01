@@ -26,20 +26,20 @@ int main(void) {
 
   printf("A matriz gerada: \n");
   for(int i = 0; i < 10; i++) {
-    printf(" | ");
+    printf(" |");
     for(int j = 0; j < 15; j++) {
-      printf(" %d ", m[i][j]);
+      printf("\t%d", m[i][j]);
     }
-    printf("\n");
+    printf("\t|\n");
   }
   
   printf("\nApenas a primeira coluna:\n");
   for(int i = 0; i < 1; i++){
-    printf(" | ");
+    printf(" |");
     for(int j = 0; j < 15; j++){
-      printf(" %d ", m[i][j]);
+      printf("\t%d", m[i][j]);
     }
-    printf(" | \n");
+    printf("\t|\n");
   }
 
   return 0;
