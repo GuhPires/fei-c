@@ -18,16 +18,22 @@ int main(void) {
   srand(time(0));
 
   for(int i = 0; i < 10; i++){
-    printf("---- Linha %d ----\n", i + 1);
     for(int j = 0; j < 15; j++){
       int num = (rand() % 101);
       m[i][j] = num;
-      printf("Coluna %d: %d\n", j + 1, num);
     }
-    printf("------------------\n");
   }
 
-  printf("Apenas a primeira coluna:\n");
+  printf("A matriz digitada: \n");
+  for(int i = 0; i < 10; i++) {
+    printf(" | ");
+    for(int j = 0; j < 15; j++) {
+      printf(" %d ", m[i][j]);
+    }
+    printf("\n");
+  }
+  
+  printf("\nApenas a primeira coluna:\n");
   for(int i = 0; i < 1; i++){
     for(int j = 0; j < 15; j++){
       printf("Elemento: %d\n", m[i][j]);
