@@ -9,17 +9,24 @@
 #include <stdio.h>
 
 int main(void) {
-  // Vetores são ponteiros.
-  char word[5];
+  char a, b, c, d, e, *pA = &a, *pB = &b, *pC = &c, *pD = &d, *pE = &e;
 
-  for(int i = 0; i < 5; i++){
-    printf("Digite a %dª letra: ", i + 1);
-    scanf(" %c", &word[i]);
-  }
+  printf("Digite a 1ª letra: ");
+  scanf(" %c", &a);
+  printf("Digite a 2ª letra: ");
+  scanf(" %c", &b);
+  printf("Digite a 3ª letra: ");
+  scanf(" %c", &c);
+  printf("Digite a 4ª letra: ");
+  scanf(" %c", &d);
+  printf("Digite a 5ª letra: ");
+  scanf(" %c", &e);
 
   printf("\nAs letras da palavra digitada e seus endereços:\n");
-  for(int i = 0; i < 5; i++){
-    printf("Letra na posição %d: %c\tEndereço: %p\n", i + 1, word[i], &word[i]);
-  }
+  printf("Letra: %c\tEndereço: %p\n", *pA, pA);
+  printf("Letra: %c\tEndereço: %p\n", *pB, pB);
+  printf("Letra: %c\tEndereço: %p\n", *pC, pC);
+  printf("Letra: %c\tEndereço: %p\n", *pD, pD);
+  printf("Letra: %c\tEndereço: %p\n", *pE, pE);
   return 0;
 }
