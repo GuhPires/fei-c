@@ -1,7 +1,10 @@
 /******************************************* OBJETIVO ******************************************************
- * Escreva um programa que declare um inteiro, um real, um char, e ponteiros para inteiro, real, e char.
- * Associe as variáveis aos ponteiros (use &). Modifique os valores de cada variável usando os ponteiros.
- * Imprima os valores das variáveis antes e após as modificações
+ * Implemente o código dado em C e preencha a tabela abaixo.
+ * 
+ *                  | a |  b  |   p1   |   p2   |
+ *                  | 4 |  3  | end. A | end. A |
+ *                  | 7 |  21 | end. A | end. A |
+ *                  | 8 |  21 | end. B | end. A |
  * 
  * AUTHOR: GuhPires
  * VISIT: https://github.com/GuhPires/fei-c
@@ -10,21 +13,17 @@
 #include <stdio.h>
 
 int main(void) {
-  int a = 10, *pA = &a;
-  float b = 5.45, *pB = &b;
-  char c = 'C', *pC = &c;
-
-  printf("A: %d, pA: %p\n", a, pA);
-  printf("B: %f, pB: %p\n", b, pB);
-  printf("C: %c, pC: %p\n", c, pC);
-
-  *pA = 22;
-  *pB = 6.36;
-  *pC = 'A';
-
-  printf("New A: %d\n", a);
-  printf("New B: %f\n", b);
-  printf("New C: %c\n", c);
-
+  int a = 4, b = 3, *p1 = &a, *p2 = p1;
+  // a -> 4, b -> 3, p1 -> end. A, -> end. A
+  *p2 = *p1 + 3;
+  // a -> 7
+  b = b * (*p1);
+  // b -> 21
+  (*p2)++;
+  // a -> 8
+  p1 = &b;
+  // p1 -> end. B
+  printf("%d %d\n", *p1, *p2);
+  printf("%d %d\n", a, b);
   return 0;
-}
+} 

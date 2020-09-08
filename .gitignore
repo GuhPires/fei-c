@@ -5,6 +5,9 @@
 # Code Runner files
 tempCodeRunnerFile.c
 
+# VSCode
+.vscode
+
 # OS and Other files
 .DS_Store
 *.zip
