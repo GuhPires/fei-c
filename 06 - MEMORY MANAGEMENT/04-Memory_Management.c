@@ -17,6 +17,10 @@ int main(void) {
   printf("Digite o número de alunos: ");
   scanf("%d", &students);
   grades = (float*)calloc(students, sizeof(float));
+  if(grades == NULL) {
+    printf("Memória não alocada!");
+    return 0;
+  }
 
   for(int i = 0; i < students; i++){
     printf("Nota do %dº aluno: ", i+1);

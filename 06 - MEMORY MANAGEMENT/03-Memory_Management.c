@@ -15,7 +15,11 @@ int main(void) {
   printf("Digite quantos números deseja inserir: ");
   scanf("%d", &n);
   nums = (int*)calloc(n, sizeof(int));
-
+  if(nums == NULL) {
+    printf("Memória não alocada!");
+    return 0;
+  }
+  
   for(int i = 0; i < n; i++){
     printf("Digite o %dº número: ", i+1);
     scanf("%d", &nums[i]);

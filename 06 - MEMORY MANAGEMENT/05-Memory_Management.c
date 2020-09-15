@@ -17,6 +17,10 @@ int main(void) {
   printf("Digite a quantidade de caracteres que deseja digitar: ");
   scanf("%d", &char_num);
   c = (char*)malloc(char_num * sizeof(char));
+  if(c == NULL) {
+    printf("Memória não alocada!");
+    return 0;
+  }
 
   for(int i = 0; i < char_num; i++) {
     printf("Digite o %dº caractere: ", i+1);

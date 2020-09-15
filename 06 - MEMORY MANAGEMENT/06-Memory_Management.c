@@ -16,6 +16,10 @@ int main(void) {
   printf("Digite a quantidade de elementos do vetor: ");
   scanf("%d", &el);
   arr = (int*)calloc(el, sizeof(int));
+  if(arr == NULL) {
+    printf("Memória não alocada!");
+    return 0;
+  }
 
   // Usando o tempo como Seed pra função rand() 
   srand(time(0));
