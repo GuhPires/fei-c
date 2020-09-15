@@ -15,6 +15,7 @@ int main(void) {
 
   printf("Digite a quantidade de elementos do vetor: ");
   scanf("%d", &el);
+  arr = (int*)calloc(el, sizeof(int));
 
   // Usando o tempo como Seed pra função rand() 
   srand(time(0));
@@ -39,6 +40,8 @@ int main(void) {
   }
 
   printf("O maior valor encontrado é: %d\n", biggest);
+
+  free(arr);
 
   return 0;
 }
