@@ -12,13 +12,14 @@
 #include <stdbool.h> 
 
 bool is_magic(int, int, int);
+bool is_leap_year(int);
 
 int main(void) {
   for(int i = 1900; i < 2000; i++) {
+    bool leap = is_leap_year(i);
     for(int j = 1; j < 13; j++) {
-      // Considering 31 days in every month, but february.
       for(int k = 1; k < 32; k++) {
-        if(j == 2 && k == 29) {
+        if((leap && j == 2 && k == 30) || (!leap && j == 2 && k == 29) || (j == 4 && k == 31) || (j == 6 && k == 31) || (j == 9 && k == 31) || (j == 11 && k == 31)) {
           break;
         }
         if(is_magic(k, j, i)){
@@ -34,6 +35,19 @@ int main(void) {
 bool is_magic(int a, int b, int c) {
   int year = c % 100;
   if(a * b == year) {
+    return true;
+  }
+  return false;
+}
+
+bool is_leap_year(int a) {
+  if(a % 4 == 0) {
+    if(a % 100 != 0) {
+      // printf("%d é bissexto\n\n", a);
+      return true;
+    }
+  } else if(a % 400 == 0) {
+    // printf("%d é bissexto\n\n", a);
     return true;
   }
   return false;
