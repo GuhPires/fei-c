@@ -14,15 +14,18 @@
 bool is_magic(int, int, int);
 
 int main(void) {
-  int day, month, year;
-  printf("Digite sua data de nascimento no formato DD MM AAAA: ");
-  scanf("%d %d %d", &day, &month, &year);
-
-  if(is_magic(day, month, year)){
-    printf("A data digitada é MÁGICA!\n");
-  }
-  else {
-    printf("A data digitada NÃO é mágica.\n");
+  for(int i = 1900; i < 2000; i++) {
+    for(int j = 1; j < 13; j++) {
+      // Considering 31 days in every month, but february.
+      for(int k = 1; k < 32; k++) {
+        if(j == 2 && k == 29) {
+          break;
+        }
+        if(is_magic(k, j, i)){
+          printf("A data %d/%d/%d é MÁGICA!\n", k, j, i);
+        }
+      }
+    }
   }
 
   return 0;
