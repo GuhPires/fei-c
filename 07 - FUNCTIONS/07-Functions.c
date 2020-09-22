@@ -13,7 +13,10 @@
 void exponencial(int, int*, int*);
 
 int main(void) {
-  int num = 25, base = 2, exp = 1;
+  // Minimum possible b exemple:
+  // 8^7 = 2097152, but 2^21 is also 2097152
+  // The output should be 2^21, since 2 < 8 (base b)
+  int num = 2097152, base = 2, exp = 1;
   exponencial(num, &base, &exp);
   printf("%d^%d é %f\n", base, exp, pow(base, exp));
   return 0;
