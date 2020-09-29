@@ -8,6 +8,9 @@
 
 #include <stdio.h>
 
+// The 'string.h' lib has some problems depending of the compiler version,
+// functions such 'strupr' and 'strlwr' are not supported,
+// that's why I made my own version of those functions.
 char* strupper(char*);
 char* strlower(char*);
 
