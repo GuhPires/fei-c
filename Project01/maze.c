@@ -20,7 +20,7 @@
  *    - Pode haver um caminho mais curto do que o que você seguiu. Contudo, este algoritmo garante que você
  *      consegue sair do labirinto.
  * 
- * OBS: Ao trabalhar com matrizes os eixos X e Y são trocados e invertidos, pois pelaa definição de matriz: 
+ * OBS: Ao trabalhar com matrizes os eixos X e Y são trocados e invertidos, pois pela definição de matriz: 
  *      [linha][coluna], ou seja, [Y][X]. São invertidos pois a posição [0][0] é no topo à esquerda (segue
  *      exemplo).
  * EXAMPLE:
@@ -96,7 +96,7 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
  * DESCRIPTION: Descobre a posição inicial e final do labirinto, passa os valores encontrados por
  *              referência, ou seja, altera os valores dos endereços passados como parâmetros.
  * @param       start array contendo as posições iniciais
- * @param       end instância da matriz do labirinto
+ * @param       end array contendo as posições finais
  * @param       matrix instância da matriz do labirinto
  * @returns     NONE
  * 
@@ -127,10 +127,9 @@ char get_direction(int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
 
 /**
  * 
- * DESCRIPTION: Dá um passo para frente, levando em consideração a direção atual
- *              (variável global 'direction'). Os parâmetros são passados por
- *              referência (enereços) e têm seus valores modificados dentro
- *              da função.
+ * DESCRIPTION: Dá um passo para frente, levando em consideração a direção atual (variável
+ *              global 'direction'). Os parâmetros são passados por referência (enereços) e
+ *              têm seus valores modificados dentro da função.
  * @param       x atual posição X do objeto
  * @param       y atual posição Y do objeto
  * @returns     NONE
@@ -155,8 +154,8 @@ void step(int *x, int *y) {
 
 /**
  * 
- * DESCRIPTION: Gira 90º na direção horária, função que modifica a variável 'direction'
- *              que está no escopo global.
+ * DESCRIPTION: Gira 90º na direção horária, função que modifica a variável 'direction' que
+ *              está no escopo global.
  * @param       NONE
  * @returns     NONE
  * 
@@ -176,10 +175,6 @@ void turn() {
       direction = 'N';
     break;
   }
-}
-
-void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
-
 }
 
 /**
@@ -267,3 +262,7 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
 //     break;
 //   }
 // }
+
+void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
+
+}
