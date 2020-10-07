@@ -48,21 +48,20 @@
 #define MAZE_SIZE 5
 
 // CONSTANTS
-char wall = '#', path = '.', pos = '+', d_pos = 'x', direction = 'E';
+char wall = '#', path = '.', pos = '+', d_pos = 'x', direction;
 
 // HELPER FUNCTIONS
 void print_maze(char[MAZE_SIZE][MAZE_SIZE], int);
 void get_positions(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
-char get_direction(int, int, char[MAZE_SIZE][MAZE_SIZE]);
-void step(int*, int*);
+int is_wall(int, int, char[MAZE_SIZE][MAZE_SIZE]);
+void step(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
 void turn();
 
 // MAIN FUNCTIONS
 // void generate_maze(int, int, char(*)[*], int);
-void solve_maze(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
+void solve_maze(char[MAZE_SIZE][MAZE_SIZE]);
 
 int main(void) {
-  int init_pos[2], end_pos[2];
   char maze[MAZE_SIZE][MAZE_SIZE] = {
     {wall, wall, wall, wall, wall},
     {wall, wall, wall, wall, wall},
@@ -70,7 +69,7 @@ int main(void) {
     {wall, wall, wall, wall, wall},
     {wall, wall, wall, wall, wall}
   };
-  solve_maze(init_pos, end_pos, maze);
+  solve_maze(maze);
 }
 
 /**
@@ -82,6 +81,7 @@ int main(void) {
  * 
 **/
 void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
+  printf("\n");
   for(int i = 0; i < MAZE_SIZE; i++) {
     if(axis == 1 && i == 0) {
       printf("\t");
@@ -102,6 +102,7 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
  * 
  * DESCRIPTION: Descobre a posição inicial e final do labirinto, passa os valores encontrados por
  *              referência, ou seja, altera os valores dos endereços passados como parâmetros.
+ *              Esta função também define a direção inicial.
  * @param       start array contendo as posições iniciais
  * @param       end array contendo as posições finais
  * @param       matrix instância da matriz do labirinto
@@ -109,7 +110,6 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
  * 
 **/
 void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
-  // i = y; j = x (matrix [lines][columns] or matrix [y][x])
   for(int i = 0; i < MAZE_SIZE; i++) {
     for(int j = 0; j < MAZE_SIZE; j++) {
       if((i == 0 || i == MAZE_SIZE - 1) || (j == 0 || j == MAZE_SIZE - 1)) {
@@ -126,10 +126,54 @@ void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
       }
     }
   }
+  // Define a direção inicial
+  if(start[0] == 0) {
+    direction = 'S';
+  } else if(start[0] == MAZE_SIZE - 1) {
+    direction = 'N';
+  } else if(start[1] == MAZE_SIZE - 1) {
+    direction = 'W';
+  } else {
+    direction = 'E';
+  }
 }
 
-char get_direction(int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
-   return ' ';
+/**
+ * 
+ * DESCRIPTION: Verifica se existe uma parede à direita da posição atual do objeto, dependendo 
+ *              também da atual direção do objeto.
+ * @param       x atual posição X
+ * @param       y atual posição Y
+ * @param       matrix instância da matriz do labirinto
+ * @returns     NONE
+ * 
+**/
+int is_wall(int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  switch(direction) {
+    case 'N':
+      if(x + 1 >= MAZE_SIZE) return -1;
+      else if(matrix[y][x + 1] == wall) return 1;
+      else return 0;
+    break;
+    case 'E':
+      if(y + 1 >= MAZE_SIZE) return -1;
+      else if(matrix[y + 1][x] == wall) return 1;
+      else return 0;
+    break;
+    case 'S':
+      if(x - 1 < 0) return -1;
+      else if(matrix[y][x - 1] == wall) return 1;
+      else return 0;
+    break;
+    case 'W':
+      if(y - 1 < 0) return -1;
+      else if(matrix[y - 1][x] == wall) return 1;
+      else return 0;
+    break;
+    default:
+      return -1;
+    break;
+  }
 }
 
 /**
@@ -139,22 +183,23 @@ char get_direction(int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
  *              têm seus valores modificados dentro da função.
  * @param       x atual posição X do objeto
  * @param       y atual posição Y do objeto
+ * @param       matrix instância da matriz do labirinto
  * @returns     NONE
  * 
 **/
-void step(int *x, int *y) {
+void step(int *x, int *y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
   switch(direction) {
     case 'N':
-      direction = 'E';
+      *y--;
     break;
     case 'E':
-      direction = 'S';
+      *x++;
     break;
     case 'S':
-      direction = 'W';
+      *y++;
     break;
     case 'W':
-      direction = 'N';
+      *x--;
     break;
   }
 }
@@ -270,8 +315,12 @@ void turn() {
 //   }
 // }
 
-void solve_maze(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  int start[2], end[2], curr_x = 0, curr_y = 0;
   print_maze(matrix, 1);
   get_positions(start, end, matrix);
-  printf("Start @ position (%d, %d); Finish @ position (%d, %d)\n", start[1], start[0], end[1], end[0]);
+  curr_x = start[1];
+  curr_y = start[0];
+  printf("\n\tStart @ position (%d, %d)\n\tFinish @ position (%d, %d)\n", start[1], start[0], end[1], end[0]);
+  printf("\tCurrent Direction: %c\n", direction);
 }
