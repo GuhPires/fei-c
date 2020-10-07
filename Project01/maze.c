@@ -51,7 +51,7 @@
 char wall = '#', path = '.', pos = '+', d_pos = 'x', direction = 'E';
 
 // HELPER FUNCTIONS
-void print_maze(char[MAZE_SIZE][MAZE_SIZE]);
+void print_maze(char[MAZE_SIZE][MAZE_SIZE], int);
 void get_positions(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
 char get_direction(int, int, char[MAZE_SIZE][MAZE_SIZE]);
 void step(int*, int*);
@@ -59,7 +59,7 @@ void turn();
 
 // MAIN FUNCTIONS
 // void generate_maze(int, int, char(*)[*], int);
-void solve_maze(char[MAZE_SIZE][MAZE_SIZE]);
+void solve_maze(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
 
 int main(void) {
   int init_pos[2], end_pos[2];
@@ -70,22 +70,29 @@ int main(void) {
     {wall, wall, wall, wall, wall},
     {wall, wall, wall, wall, wall}
   };
-  print_maze(maze);
-  get_positions(init_pos, end_pos, maze);
-  printf("Start @ (%d, %d); End @ (%d, %d)\n", init_pos[1], init_pos[0], end_pos[1], end_pos[0]);
+  solve_maze(init_pos, end_pos, maze);
 }
 
 /**
  * 
  * DESCRIPTION: Imprime o labirinto desejado.
  * @param       matrix instância da matriz do labirinto
+ * @param       axis controla se os eixos devem ser impressos (0 = false, 1 = true)
  * @returns     NONE
  * 
 **/
-void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
+void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
   for(int i = 0; i < MAZE_SIZE; i++) {
+    if(axis == 1 && i == 0) {
+      printf("\t");
+      for(int k = 0; k < MAZE_SIZE; k++) {
+        printf("\t[%d]", k);
+      }
+      printf("\n");
+    }
     for(int j = 0; j < MAZE_SIZE; j++){
-      printf("\t%c", matrix[i][j]);
+      if(axis == 1 && j == 0) printf("\t[%d]", i);
+      printf("\t %c ", matrix[i][j]);
     }
       printf("\n");
   }
@@ -122,7 +129,7 @@ void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
 }
 
 char get_direction(int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
-
+   return ' ';
 }
 
 /**
@@ -263,6 +270,8 @@ void turn() {
 //   }
 // }
 
-void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
-
+void solve_maze(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  print_maze(matrix, 1);
+  get_positions(start, end, matrix);
+  printf("Start @ position (%d, %d); Finish @ position (%d, %d)\n", start[1], start[0], end[1], end[0]);
 }
