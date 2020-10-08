@@ -24,12 +24,12 @@
  *      [linha][coluna], ou seja, [Y][X]. São invertidos pois a posição [0][0] é no topo à esquerda (segue
  *      exemplo).
  * EXAMPLE:
- *      Plano Cartesiano Padrão:      Plano Cartesiano "Matricial"
- *      y                                   0 ------------ coluna (j)
- *      |                                   |  
- *      |                                   |
- *      |                                   |
- *      0 ------------ x                  linha (i)
+ *      Plano Cartesiano Padrão:      Plano Cartesiano "Matricial"            Plano Cartesiado Adotado
+ *      +y                                  0 ------------ coluna (j)             0 ------------ +x
+ *      |                                   |                                     |
+ *      |                                   |                                     |
+ *      |                                   |                                     |
+ *      0 ------------ +x                  linha (i)                              +y
  * 
  * OBS: Para saber qual é o lado direito, é necessário que se saiba qual a direção o objeto que percorrerá o
  *      labirinto está apontando, portanto, a variável 'direction' controla isso. Os possíveis valores estão
@@ -53,7 +53,7 @@ char wall = '#', path = '.', pos = '+', d_pos = 'x', direction;
 // HELPER FUNCTIONS
 void print_maze(char[MAZE_SIZE][MAZE_SIZE], int);
 void get_positions(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
-int is_wall(int, int, char[MAZE_SIZE][MAZE_SIZE]);
+int is_wall_on(char, int, int, char[MAZE_SIZE][MAZE_SIZE]);
 void step(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
 void turn();
 
@@ -140,35 +140,62 @@ void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
 
 /**
  * 
- * DESCRIPTION: Verifica se existe uma parede à direita da posição atual do objeto, dependendo 
- *              também da atual direção do objeto.
+ * DESCRIPTION: Verifica se existe uma parede à direita ou a frente da posição atual do objeto,
+ *              dependendo também da atual direção do objeto.
+ * @param       side lado que deseja verificar a existênca de uma parede. One 'F' para front
+ *                   (frente), 'R' para right (direita)
  * @param       x atual posição X
  * @param       y atual posição Y
  * @param       matrix instância da matriz do labirinto
  * @returns     NONE
  * 
 **/
-int is_wall(int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+int is_wall_on(char side, int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  if(side != 'R' && side != 'F') return -1;
   switch(direction) {
     case 'N':
-      if(x + 1 >= MAZE_SIZE) return -1;
-      else if(matrix[y][x + 1] == wall) return 1;
-      else return 0;
+      if(side == 'R') {
+        if(x + 1 >= MAZE_SIZE) return -1;
+        else if(matrix[y][x + 1] == wall) return 1;
+        else return 0;
+      } else if(side == 'F') {
+        if(y - 1 < 0) return -1;
+        else if(matrix[y - 1][x] == wall) return 1;
+        else return 0;
+      }
     break;
     case 'E':
-      if(y + 1 >= MAZE_SIZE) return -1;
-      else if(matrix[y + 1][x] == wall) return 1;
-      else return 0;
+      if(side == 'R') {
+        if(y + 1 >= MAZE_SIZE) return -1;
+        else if(matrix[y + 1][x] == wall) return 1;
+        else return 0;
+      } else if(side == 'F') {
+        if(x + 1 >= MAZE_SIZE) return -1;
+        else if(matrix[y][x + 1] == wall) return 1;
+        else return 0;
+      }
     break;
     case 'S':
-      if(x - 1 < 0) return -1;
-      else if(matrix[y][x - 1] == wall) return 1;
-      else return 0;
+      if(side == 'R') {
+        if(x - 1 < 0) return -1;
+        else if(matrix[y][x - 1] == wall) return 1;
+        else return 0;
+      } else if(side == 'F') {
+        if(y + 1 >= MAZE_SIZE) return -1;
+        else if(matrix[y + 1][x] == wall) return 1;
+        else return 0;
+      }
     break;
     case 'W':
-      if(y - 1 < 0) return -1;
-      else if(matrix[y - 1][x] == wall) return 1;
-      else return 0;
+      if(side == 'R') {
+        if(y - 1 < 0) return -1;
+        else if(matrix[y - 1][x] == wall) return 1;
+        else return 0;
+      } else if(side == 'F') {
+        if(x - 1 < 0) return -1;
+        else if(matrix[y][x - 1] == wall) return 1;
+        else return 0;
+      }
     break;
     default:
       return -1;
@@ -323,4 +350,32 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
   curr_y = start[0];
   printf("\n\tStart @ position (%d, %d)\n\tFinish @ position (%d, %d)\n", start[1], start[0], end[1], end[0]);
   printf("\tCurrent Direction: %c\n", direction);
+
+  // Tarefa executada até que o objeto esteja na posição final (x,y)
+  // while(1) {
+    // Se existir parede a direita
+    printf("\tCurrent Position: (%d, %d)", curr_x, curr_y);
+    int r_wall = is_wall_on('R', curr_x, curr_y, matrix);
+    int f_wall = is_wall_on('F', curr_x, curr_y, matrix);
+    if(r_wall == -1 || f_wall == -1) printf("ERRO!");
+    if(r_wall) {
+      // Se existir parede a frente
+      printf("\tParede a direita\n");
+      if(f_wall) {
+        // turn();
+        printf("\tParede a frente\n");
+      } else {
+        // Siga em frente
+        printf("\tSiga!\n");
+        // step(&curr_x, &curr_y, matrix);
+      }
+    } else {
+      // Vire
+      printf("\tVire e siga!\n");
+      // turn();
+      // step(&curr_x, &curr_y, matrix);
+    }
+    // if(curr_x == end[1] && curr_y == end[0]) break;
+  // }
+  // printf("\tSolução encontrada!\n");
 }
