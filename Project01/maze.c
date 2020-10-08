@@ -1,6 +1,6 @@
 /******************************************* OBJETIVO ******************************************************
  * O programa deve ser capaz de gerar um labirinto e resolvê-lo. Resolver o labirinto significa que ao
- * simular um objeto que percorre o mesmo e que este ache a saída a partir de um ponto de partida.
+ * simular um objeto que percorre o mesmo, este ache a saída a partir de um ponto de partida.
  * 
  * O programa deve conter 2 funções:
  *    - Função para gerar o labirinto a partir de uma matriz 12x12;
@@ -21,8 +21,8 @@
  *      consegue sair do labirinto.
  * 
  * OBS: Ao trabalhar com matrizes os eixos X e Y são trocados e invertidos, pois pela definição de matriz: 
- *      [linha][coluna], ou seja, [Y][X]. São invertidos pois a posição [0][0] é no topo à esquerda (segue
- *      exemplo).
+ *      [linha][coluna], ou seja, [Y][X] (trocados). São invertidos pois a posição [0][0] é no topo à esquerda
+ *      (segue exemplo).
  * EXAMPLE:
  *      Plano Cartesiano Padrão:      Plano Cartesiano "Matricial"            Plano Cartesiado Adotado
  *      +y                              0 ------------ coluna (j)                 0 ------------ +x
@@ -39,7 +39,32 @@
  *                                ↑               + →                +              ← +
  *                                +                                  ↓  
  * 
- * ATTENTION:
+ * ATTENTION: Para a criação e a solução efetiva do labirinto, se admite que o mesmo é rodeado por
+ *            paredes, somente o início e o fim podem estar localizados nas bordas, portanto, não
+ *            se pode percorrer o labirinto por suas bordas. Isso pode ser considerado como
+ *            "Princípio das bordas" (nome que inventei para esta restrição). Veja exemplos abaixo:
+ *
+ *            CORRETO           ERRADO            CORRETO           ERRADO       
+ *           # # # # #        # # # # #          # + # # #         # # # # #     Nota-se que os
+ *           # # # # #        # # # # #          # . . . #         # # . . .     labirintos dados
+ *           + . . . .        + # # # #          # # # . #         # # . # .     como CORRETOS
+ *           # # # # #        . # # # #          # # # . #         # # . # .     são rodeados por
+ *           # # # # #        . # # # #          # # # . #         # # + # .     paredes ('#').
+ * 
+ * ATTENTION: A direção inicial é definida a partir do "princípio das bordas" citado acima, ou seja,
+ *            dependendo da da borda onde se é encontrada a posição inicial pode-se definir a direção
+ *            inicial do objeto. Veja abaixo os casos:
+ *            
+ *          Início na borda           Início na borda           Início na borda           Início na borda
+ *            da esquerda                 do topo                  da direita                 de baixo
+ *              # # #                      # + #                     # # #                      # # #
+ *              + # #                      # # #                     # # +                      # # #
+ *              # # #                      # # #                     # # #                      # + #
+ * 
+ *            - Para início na borda da ESQUERDA a única direção permitida é a LESTE ('E');
+ *            - Para início na borda do TOPO a única direção permitida é a SUL ('S');
+ *            - Para início na borda da DIREITA a única direção permitida é a OESTE ('W');
+ *            - Para início na borda de BAIXO a única direção permitida é a NORTE ('N').
  * 
  * AUTHOR: GuhPires (Gustavo G. Pires, RA: 11.219.056-6)
  * VISIT: https://github.com/GuhPires/fei-c
@@ -88,6 +113,7 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
   printf("\n");
   printf("\n");
   for(int i = 0; i < MAZE_SIZE; i++) {
+    // Se necessário a impressão dos eixos adotados (a partir do parâmetro 'axis')
     if(axis == 1 && i == 0) {
       printf("\t");
       for(int k = 0; k < MAZE_SIZE; k++) {
@@ -96,6 +122,7 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
       printf("\n");
     }
     for(int j = 0; j < MAZE_SIZE; j++){
+      // Se necessário a impressão dos eixos adotados (a partir do parâmetro 'axis')
       if(axis == 1 && j == 0) printf("\t[%d]", i);
       printf("\t %c ", matrix[i][j]);
     }
@@ -108,7 +135,7 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
  * 
  * DESCRIPTION: Descobre a posição inicial e final do labirinto, passa os valores encontrados por
  *              referência, ou seja, altera os valores dos endereços passados como parâmetros.
- *              Esta função também define a direção inicial.
+ *              Esta função também define a direção inicial do objeto.
  * @param       start array contendo as posições iniciais
  * @param       end array contendo as posições finais
  * @param       matrix instância da matriz do labirinto
@@ -118,12 +145,18 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
 void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
   for(int i = 0; i < MAZE_SIZE; i++) {
     for(int j = 0; j < MAZE_SIZE; j++) {
+      // Verifica-se o caractere adotado como 'pos' e o caractere adotado como 'path'
+      // APENAS nas bordas, pois é onde inicia-se e finaliza-se o labirinto (ver 'ATTENTION'
+      // sobre o "princípio das bordas")
       if((i == 0 || i == MAZE_SIZE - 1) || (j == 0 || j == MAZE_SIZE - 1)) {
-        // printf("POSITION (%d,%d); CHARACTER: %c\n", j, i, matrix[i][j]);
+        // Se a posição atual j, i (ou x, y) possui o caractere de 'pos'
         if(matrix[i][j] == pos) {
+          // Atribui-se o início nas coordenadas atuais
           start[0] = i;
           start[1] = j;
+        // Se a posição atual j, i (ou x, y) possui o caractere de 'path'
         } else if(matrix[i][j] == path) {
+          // Atribui-se o final nas coordenadas atuais
           end[0] = i;
           end[1] = j;
         }
@@ -132,7 +165,9 @@ void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
       }
     }
   }
-  // Define a direção inicial
+  // Define a direção inicial a partir das coordenadas X e Y encontradas para o início
+  // Ver 'ATTENTION' no topo deste aquivo para uma informação mais detalhada sobre a 
+  // lógica adotada para se descobrir a direção inicial do objeto
   if(start[0] == 0) {
     direction = 'S';
   } else if(start[0] == MAZE_SIZE - 1) {
@@ -146,18 +181,26 @@ void get_positions(int *start, int *end, char matrix[MAZE_SIZE][MAZE_SIZE]) {
 
 /**
  * 
- * DESCRIPTION: Verifica se existe uma parede à direita ou a frente da posição atual do objeto,
+ * DESCRIPTION: Verifica se existe uma parede a direita ou a frente da posição atual do objeto,
  *              dependendo também da atual direção do objeto.
- * @param       side lado que deseja verificar a existênca de uma parede. One 'F' para front
+ * @param       side lado que deseja verificar a existênca de uma parede. Onde 'F' para front
  *                   (frente), 'R' para right (direita)
  * @param       x atual posição X
  * @param       y atual posição Y
  * @param       matrix instância da matriz do labirinto
- * @returns     NONE
+ * @returns     -1 para parâmetros e/ou coordenadas inválidas; 1 para a existência de parede no
+ *              lado passado como parâmetro (side); 0 para a inexistência de parede no lado
+ *              passado como parâmetro (side).
  * 
 **/
 int is_wall_on(char side, int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  // Verifica se o parâmetro passado como o lado a ser verificado é válido
   if(side != 'R' && side != 'F') return -1;
+  // Para melhor entender os eixos adotados e a lógica abaixo, veja a
+  // explicação e o plano adotado pelo programa nas observações no topo
+  // deste arquivo
+
+  // Verifica se há uma parede no lado passado como parâmetro
   switch(direction) {
     case 'N':
       if(side == 'R') {
@@ -213,7 +256,7 @@ int is_wall_on(char side, int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
 /**
  * 
  * DESCRIPTION: Dá um passo para frente, levando em consideração a direção atual (variável
- *              global 'direction'). Os parâmetros são passados por referência (enereços) e
+ *              global 'direction'). Os parâmetros são passados por referência (endereços) e
  *              têm seus valores modificados dentro da função.
  * @param       x atual posição X do objeto
  * @param       y atual posição Y do objeto
@@ -238,8 +281,8 @@ void step(int *x, int *y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
     break;
   }
   // Modifica o caractere que indica o caminho percorrido
-  if(matrix[*y][*x] == pos) matrix[*y][*x] = d_pos;
-  else matrix[*y][*x] = pos;
+  if(matrix[*y][*x] == path) matrix[*y][*x] = pos;
+  else matrix[*y][*x] = d_pos;
 }
 
 /**
@@ -354,6 +397,13 @@ void turn() {
 //   }
 // }
 
+/**
+ * 
+ * DESCRIPTION: Resolve o labirinto gerado pelo programa/usuário.
+ * @param       matrix instância da matriz do labirinto
+ * @returns     NONE
+ * 
+**/
 void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
   // Variáveis de controle de início, fim e posicionamento
   int start[2], end[2], curr_x = 0, curr_y = 0;
@@ -361,7 +411,7 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
   print_maze(matrix, 1);
   // Procura por uma posição inicial e final, além da direção inicial do objeto
   get_positions(start, end, matrix);
-  // Salva nas variáveis de controle de posicionamento do objeto
+  // Salva as posições iniciais nas variáveis de controle de posicionamento do objeto
   curr_x = start[1];
   curr_y = start[0];
   printf("\n\tInício em: (%d, %d)\n\tFinal em: (%d, %d)\n", start[1], start[0], end[1], end[0]);
@@ -390,11 +440,13 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
       if(f_wall) {
         printf("\tParede a frente\n");
         // Gira na direção ANTI-HORÁRIA (neste caso, gira-se 3x na direção horária para
-        // atingir o mesmo resultado e não criar novos casos para a função 'turn()')
-        printf("\tVire 3x\n");
+        // atingir o mesmo resultado e não criar novos casos para a função 'turn()') e
+        // segue em frente
+        printf("\tVire 3x e siga em frente\n");
         turn();
         turn();
         turn();
+        step(&curr_x, &curr_y, matrix);
       } else {
         // Siga em frente
         printf("\tSem parede a frente\n");
