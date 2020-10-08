@@ -25,11 +25,11 @@
  *      exemplo).
  * EXAMPLE:
  *      Plano Cartesiano Padrão:      Plano Cartesiano "Matricial"            Plano Cartesiado Adotado
- *      +y                                  0 ------------ coluna (j)             0 ------------ +x
- *      |                                   |                                     |
- *      |                                   |                                     |
- *      |                                   |                                     |
- *      0 ------------ +x                  linha (i)                              +y
+ *      +y                              0 ------------ coluna (j)                 0 ------------ +x
+ *      |                               |                                         |
+ *      |                               |                                         |
+ *      |                               |                                         |
+ *      0 ------------ +x             linha (i)                                   +y
  * 
  * OBS: Para saber qual é o lado direito, é necessário que se saiba qual a direção o objeto que percorrerá o
  *      labirinto está apontando, portanto, a variável 'direction' controla isso. Os possíveis valores estão
@@ -82,6 +82,9 @@ int main(void) {
 **/
 void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
   printf("\n");
+  printf("\n");
+  printf("\n");
+  printf("\n");
   for(int i = 0; i < MAZE_SIZE; i++) {
     if(axis == 1 && i == 0) {
       printf("\t");
@@ -94,8 +97,9 @@ void print_maze(char matrix[MAZE_SIZE][MAZE_SIZE], int axis) {
       if(axis == 1 && j == 0) printf("\t[%d]", i);
       printf("\t %c ", matrix[i][j]);
     }
-      printf("\n");
+    printf("\n");
   }
+  printf("\n");
 }
 
 /**
@@ -201,6 +205,7 @@ int is_wall_on(char side, int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
       return -1;
     break;
   }
+  return -1;
 }
 
 /**
@@ -215,20 +220,24 @@ int is_wall_on(char side, int x, int y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
  * 
 **/
 void step(int *x, int *y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  // Verifica a direção atual e dá um passo a frente
   switch(direction) {
     case 'N':
-      *y--;
+      (*y)--;
     break;
     case 'E':
-      *x++;
+      (*x)++;
     break;
     case 'S':
-      *y++;
+      (*y)++;
     break;
     case 'W':
-      *x--;
+      (*x)--;
     break;
   }
+  // Modifica o caractere que indica o caminho percorrido
+  if(matrix[*y][*x] == pos) matrix[*y][*x] = d_pos;
+  else matrix[*y][*x] = pos;
 }
 
 /**
@@ -240,6 +249,7 @@ void step(int *x, int *y, char matrix[MAZE_SIZE][MAZE_SIZE]) {
  * 
 **/
 void turn() {
+  // Verifica a direção atual e vira na direção horária
   switch(direction) {
     case 'N':
       direction = 'E';
@@ -350,32 +360,44 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
   curr_y = start[0];
   printf("\n\tStart @ position (%d, %d)\n\tFinish @ position (%d, %d)\n", start[1], start[0], end[1], end[0]);
   printf("\tCurrent Direction: %c\n", direction);
-
+  printf("\n");
+  printf("\t---- Solucionando Labirinto... ----\n");
+  print_maze(matrix, 0);
   // Tarefa executada até que o objeto esteja na posição final (x,y)
-  // while(1) {
+  while(1) {
     // Se existir parede a direita
-    printf("\tCurrent Position: (%d, %d)", curr_x, curr_y);
+    printf("\tCurrent Position: (%d, %d)\n", curr_x, curr_y);
     int r_wall = is_wall_on('R', curr_x, curr_y, matrix);
     int f_wall = is_wall_on('F', curr_x, curr_y, matrix);
-    if(r_wall == -1 || f_wall == -1) printf("ERRO!");
+    if(r_wall == -1 || f_wall == -1) {
+      printf("---- ERRO! ----\n");
+      break;
+    }
     if(r_wall) {
       // Se existir parede a frente
       printf("\tParede a direita\n");
       if(f_wall) {
-        // turn();
+        turn();
         printf("\tParede a frente\n");
       } else {
         // Siga em frente
         printf("\tSiga!\n");
-        // step(&curr_x, &curr_y, matrix);
+        step(&curr_x, &curr_y, matrix);
       }
     } else {
       // Vire
       printf("\tVire e siga!\n");
-      // turn();
-      // step(&curr_x, &curr_y, matrix);
+      turn();
+      step(&curr_x, &curr_y, matrix);
     }
-    // if(curr_x == end[1] && curr_y == end[0]) break;
-  // }
-  // printf("\tSolução encontrada!\n");
+    // Imprime o estado atual do labirinto
+    print_maze(matrix, 0);
+
+    if(curr_x == end[1] && curr_y == end[0]) {
+      printf("\t==== Solução encontrada! ====\n");
+      break;
+    }
+  }
+  printf("\n");
+  printf("\tFinalizando programa...\n");
 }
