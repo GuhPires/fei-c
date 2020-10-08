@@ -72,7 +72,8 @@
 
 #include <stdio.h>
 
-#define MAZE_SIZE 5
+// Define o tamanho do labirinto gerado
+#define MAZE_SIZE 12
 
 // CONSTANTS
 char wall = '#', path = '.', pos = '+', d_pos = 'x', direction;
@@ -90,11 +91,18 @@ void solve_maze(char[MAZE_SIZE][MAZE_SIZE]);
 
 int main(void) {
   char maze[MAZE_SIZE][MAZE_SIZE] = {
-    {wall, wall, wall, wall, wall},
-    {pos, path, path, path, wall},
-    {wall, wall, wall, path, path},
-    {wall, wall, wall, path, wall},
-    {wall, wall, wall, wall, wall}
+    {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall},
+    {pos, path, path, path, wall, wall, wall, wall, wall, wall, wall, wall},
+    {wall, wall, wall, path, path, path, path, wall, wall, wall, wall, wall},
+    {wall, wall, wall, path, wall, wall, path, wall, wall, wall, wall, wall},
+    {wall, wall, wall, wall, wall, wall, path, wall, wall, wall, wall, wall},
+    {wall, wall, wall, wall, wall, wall, path, wall, wall, wall, wall, wall},
+    {wall, wall, path, path, path, path, path, wall, wall, wall, wall, wall},
+    {wall, path, path, wall, wall, wall, wall, wall, wall, wall, wall, wall},
+    {wall, path, wall, wall, wall, path, path, path, path, path, path, path},
+    {wall, path, wall, wall, wall, path, wall, wall, wall, wall, path, wall},
+    {wall, path, path, path, path, path, wall, wall, wall, wall, path, wall},
+    {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall}
   };
   solve_maze(maze);
 }
