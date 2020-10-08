@@ -91,9 +91,9 @@ void solve_maze(char[MAZE_SIZE][MAZE_SIZE]);
 int main(void) {
   char maze[MAZE_SIZE][MAZE_SIZE] = {
     {wall, wall, wall, wall, wall},
-    {pos, path, path, wall, wall},
-    {wall, wall, path, path, path},
-    {wall, wall, wall, wall, wall},
+    {pos, path, path, path, wall},
+    {wall, wall, wall, path, path},
+    {wall, wall, wall, path, wall},
     {wall, wall, wall, wall, wall}
   };
   solve_maze(maze);
@@ -440,13 +440,11 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
       if(f_wall) {
         printf("\tParede a frente\n");
         // Gira na direção ANTI-HORÁRIA (neste caso, gira-se 3x na direção horária para
-        // atingir o mesmo resultado e não criar novos casos para a função 'turn()') e
-        // segue em frente
-        printf("\tVire 3x e siga em frente\n");
+        // atingir o mesmo resultado e não criar novos casos para a função 'turn()')
+        printf("\tVire 3x\n");
         turn();
         turn();
         turn();
-        step(&curr_x, &curr_y, matrix);
       } else {
         // Siga em frente
         printf("\tSem parede a frente\n");
