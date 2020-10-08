@@ -39,6 +39,8 @@
  *                                ↑               + →                +              ← +
  *                                +                                  ↓  
  * 
+ * ATTENTION:
+ * 
  * AUTHOR: GuhPires (Gustavo G. Pires, RA: 11.219.056-6)
  * VISIT: https://github.com/GuhPires/fei-c
  **********************************************************************************************************/
@@ -64,8 +66,8 @@ void solve_maze(char[MAZE_SIZE][MAZE_SIZE]);
 int main(void) {
   char maze[MAZE_SIZE][MAZE_SIZE] = {
     {wall, wall, wall, wall, wall},
-    {wall, wall, wall, wall, wall},
-    {pos, path, path, path, path},
+    {pos, path, path, wall, wall},
+    {wall, wall, path, path, path},
     {wall, wall, wall, wall, wall},
     {wall, wall, wall, wall, wall}
   };
@@ -353,46 +355,63 @@ void turn() {
 // }
 
 void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  // Variáveis de controle de início, fim e posicionamento
   int start[2], end[2], curr_x = 0, curr_y = 0;
+  // Imprime a matriz do labirinto demonstrando os eixos adotados
   print_maze(matrix, 1);
+  // Procura por uma posição inicial e final, além da direção inicial do objeto
   get_positions(start, end, matrix);
+  // Salva nas variáveis de controle de posicionamento do objeto
   curr_x = start[1];
   curr_y = start[0];
-  printf("\n\tStart @ position (%d, %d)\n\tFinish @ position (%d, %d)\n", start[1], start[0], end[1], end[0]);
-  printf("\tCurrent Direction: %c\n", direction);
+  printf("\n\tInício em: (%d, %d)\n\tFinal em: (%d, %d)\n", start[1], start[0], end[1], end[0]);
+  printf("\tDireção atual: %c\n", direction);
   printf("\n");
   printf("\t---- Solucionando Labirinto... ----\n");
   print_maze(matrix, 0);
   // Tarefa executada até que o objeto esteja na posição final (x,y)
   while(1) {
-    // Se existir parede a direita
-    printf("\tCurrent Position: (%d, %d)\n", curr_x, curr_y);
+    printf("\tPosição atual: (%d, %d)\n", curr_x, curr_y);
+    // Verifica se existe uma parede a direita do objeto
     int r_wall = is_wall_on('R', curr_x, curr_y, matrix);
+    // Verifica se existe uma parede a frente do objeto
     int f_wall = is_wall_on('F', curr_x, curr_y, matrix);
+    // Se a posição atual for na borda da matriz (o que é um valor inválido), uma
+    // mensagem de erro é aprensentada e o programa é finalizado (veja 'ATTENTION'
+    // no topo o programa)
     if(r_wall == -1 || f_wall == -1) {
       printf("---- ERRO! ----\n");
       break;
     }
+    // Se existir parede a direita
     if(r_wall) {
-      // Se existir parede a frente
       printf("\tParede a direita\n");
+      // Se existir parede a frente
       if(f_wall) {
-        turn();
         printf("\tParede a frente\n");
+        // Gira na direção ANTI-HORÁRIA (neste caso, gira-se 3x na direção horária para
+        // atingir o mesmo resultado e não criar novos casos para a função 'turn()')
+        printf("\tVire 3x\n");
+        turn();
+        turn();
+        turn();
       } else {
         // Siga em frente
+        printf("\tSem parede a frente\n");
         printf("\tSiga!\n");
         step(&curr_x, &curr_y, matrix);
       }
     } else {
-      // Vire
+      // Vire e siga em frente na nova direção
+      printf("\tSem parede a direita\n");
       printf("\tVire e siga!\n");
       turn();
       step(&curr_x, &curr_y, matrix);
     }
     // Imprime o estado atual do labirinto
     print_maze(matrix, 0);
-
+    // Se a posição atual é igual a posição final significa que uma saída foi encontrada,
+    // apresenta-se uma mensagem para o usuário e finaliza o programa
     if(curr_x == end[1] && curr_y == end[0]) {
       printf("\t==== Solução encontrada! ====\n");
       break;
