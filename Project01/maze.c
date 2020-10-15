@@ -71,6 +71,11 @@
  **********************************************************************************************************/
 
 #include <stdio.h>
+#ifdef _WIN32
+#include <Windows.h>
+#else
+#include <unistd.h>
+#endif
 
 // Define o tamanho do labirinto gerado
 #define MAZE_SIZE 12
@@ -315,7 +320,7 @@ void turn() {
  * 
 **/
 void generate_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
-  char gen_maze = {
+  char gen_maze[MAZE_SIZE][MAZE_SIZE] = {
     {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall},
     {pos, path, path, path, wall, wall, wall, wall, wall, wall, wall, wall},
     {wall, wall, wall, path, path, path, path, wall, wall, wall, wall, wall},
@@ -360,6 +365,8 @@ void solve_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
   print_maze(matrix, 0);
   // Tarefa executada até que o objeto esteja na posição final (x,y)
   while(1) {
+    // Para efeitos de "animação", cada iteração é pausada por 1.5 segundos
+    sleep(1.5);
     printf("\tPosição atual: (%d, %d)\n", curr_x, curr_y);
     // Verifica se existe uma parede a direita do objeto
     int r_wall = is_wall_on('R', curr_x, curr_y, matrix);
