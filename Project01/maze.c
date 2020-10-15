@@ -86,24 +86,12 @@ void step(int*, int*, char[MAZE_SIZE][MAZE_SIZE]);
 void turn();
 
 // MAIN FUNCTIONS
-// void generate_maze(int, int, char(*)[*], int);
+void generate_maze(char[MAZE_SIZE][MAZE_SIZE]);
 void solve_maze(char[MAZE_SIZE][MAZE_SIZE]);
 
 int main(void) {
-  char maze[MAZE_SIZE][MAZE_SIZE] = {
-    {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall},
-    {pos, path, path, path, wall, wall, wall, wall, wall, wall, wall, wall},
-    {wall, wall, wall, path, path, path, path, wall, wall, wall, wall, wall},
-    {wall, wall, wall, path, wall, wall, path, wall, wall, wall, wall, wall},
-    {wall, wall, wall, wall, wall, wall, path, wall, wall, wall, wall, wall},
-    {wall, wall, wall, wall, wall, wall, path, wall, wall, wall, wall, wall},
-    {wall, wall, path, path, path, path, path, wall, wall, wall, wall, wall},
-    {wall, path, path, wall, wall, wall, wall, wall, wall, wall, wall, wall},
-    {wall, path, wall, wall, wall, path, path, path, path, path, path, path},
-    {wall, path, wall, wall, wall, path, wall, wall, wall, wall, path, wall},
-    {wall, path, path, path, path, path, wall, wall, wall, wall, path, wall},
-    {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall}
-  };
+  char maze[MAZE_SIZE][MAZE_SIZE];
+  generate_maze(maze);
   solve_maze(maze);
 }
 
@@ -322,88 +310,31 @@ void turn() {
 /**
  * 
  * DESCRIPTION: Gera um labirinto em uma matriz quadrada.
- * @param       lines número de linhas da matriz
- * @param       columns número de colunas da matriz
  * @param       matrix instância da matriz do labirinto
- * @param       test_case inteiro que define qual teste deve ser criado. Cada número gera um tipo diferente
- *                        de labirinto para teste.
  * @returns     NONE
  * 
 **/
-// void generate_maze(int lines, int columns, char matrix[lines][columns], int test_case) {
-//   switch(test_case){
-//     case 0:
-//       char maze[5][5] = {
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//         {'+', '.', '.', '.', '.'},
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"}
-//       };
-//       memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//     case 1:
-//       char maze[5][5] = {
-//         {"\u2588", "\u2588", '+', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"}
-//       };
-//       memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//     case 2:
-//       char maze[5][5] = {
-//           {'+', '.', '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"}
-//         };
-//       memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//     case 3:
-//       char maze[5][5] = {
-//         {"\u2588", "\u2588", '.', '.', '+'},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"}
-//       };
-//       memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//     case 4:
-//       char maze[5][5] = {
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", '.', '.', '+'}
-//       };
-//       memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//     case 5:
-//       char maze[5][5] = {
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {"\u2588", "\u2588", '.', "\u2588", "\u2588"},
-//           {'+', '.', '.', "\u2588", "\u2588"}
-//         };
-//         memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//     default:
-//       char maze[5][5] = {
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//         {'+', '.', '.', '.', '.'},
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//         {"\u2588", "\u2588", "\u2588", "\u2588", "\u2588"},
-//       };
-//       memcpy(matrix, maze, sizeof(matrix));
-//     break;
-//   }
-// }
+void generate_maze(char matrix[MAZE_SIZE][MAZE_SIZE]) {
+  char gen_maze = {
+    {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall},
+    {pos, path, path, path, wall, wall, wall, wall, wall, wall, wall, wall},
+    {wall, wall, wall, path, path, path, path, wall, wall, wall, wall, wall},
+    {wall, wall, wall, path, wall, wall, path, wall, wall, wall, wall, wall},
+    {wall, wall, wall, wall, wall, wall, path, wall, wall, wall, wall, wall},
+    {wall, wall, wall, wall, wall, wall, path, wall, wall, wall, wall, wall},
+    {wall, wall, path, path, path, path, path, wall, wall, wall, wall, wall},
+    {wall, path, path, wall, wall, wall, wall, wall, wall, wall, wall, wall},
+    {wall, path, wall, wall, wall, path, path, path, path, path, path, path},
+    {wall, path, wall, wall, wall, path, wall, wall, wall, wall, path, wall},
+    {wall, path, path, path, path, path, wall, wall, wall, wall, path, wall},
+    {wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall, wall}
+  };
+  for(int i = 0; i < MAZE_SIZE; i++) {
+    for(int j = 0; j < MAZE_SIZE; j++) {
+      matrix[i][j] = gen_maze[i][j];
+    }
+  }
+}
 
 /**
  * 
