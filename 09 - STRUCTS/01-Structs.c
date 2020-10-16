@@ -8,13 +8,13 @@
 
 #include <stdio.h>
 
-struct my_band {
+struct band {
   char name[50];
   char genre[100];
   int participants;
 };
 
 int main(void) {
-  struct my_band doidera;
+  struct band my_band;
   return 0;
 }
