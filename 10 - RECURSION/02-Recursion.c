@@ -3,6 +3,7 @@
  * base^expoente.
  * Por exemplo, pot(3, 4) = 3 * 3 * 3 * 3. Suponha que o expoente seja um número inteiro maior ou igual a 1.
  * Dica: A etapa de recursão pode usar o relacionamento: base^exponente = base * base^exponente – 1
+ * A condição final ocorre quando o expoente é igual a 1
  * 
  * AUTHOR: GuhPires
  * VISIT: https://github.com/GuhPires/fei-c
