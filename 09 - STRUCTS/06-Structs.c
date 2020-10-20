@@ -6,3 +6,15 @@
  * AUTHOR: GuhPires
  * VISIT: https://github.com/GuhPires/fei-c
  **********************************************************************************************************/
+
+#include <stdio.h>
+
+struct card {
+  // D -> diamonds; H -> hearts; C -> clubs; S -> spades
+  char symbol;
+  char value;
+};
+
+int main(void) {
+  return 0;
+}
