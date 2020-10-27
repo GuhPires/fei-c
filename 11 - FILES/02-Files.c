@@ -12,6 +12,10 @@
 int main(void) {
   FILE* even = fopen("pares.txt", "w");
   FILE* odd = fopen("impares.txt", "w");
+  if(even == NULL || odd == NULL) {
+    puts("Ocorreu algo de errado com um dos arquivos...");
+    exit(1);
+  }
   for(int i = 0; i < 1000; i++) {
     if(i % 2 == 0) {
       fprintf(even, "%d\n", i);
