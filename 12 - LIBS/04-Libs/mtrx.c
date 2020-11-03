@@ -6,6 +6,7 @@ int bellow_main_diagonal_sum(int mtrx[SIZE][SIZE]) {
   for(int i = 0; i < SIZE; i++) {
     for(int j = 0; j < SIZE; j++) {
       if(j < i) {
+        printf("IDX (%d, %d)\n", i, j);
         printf("EL: %d\n", mtrx[i][j]);
         sum += mtrx[i][j];
       }
