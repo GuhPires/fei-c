@@ -5,4 +5,4 @@
 #include <stdio.h>
 #include <math.h>
 
-float calc_hypotenuse(float c1, float c2);
+float calc_hypotenuse(float, float);

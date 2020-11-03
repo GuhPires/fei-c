@@ -16,4 +16,5 @@ int main(void) {
   printf("Digite os catetos (separados por espaço): ");
   scanf("%f %f", &c1, &c2);
   printf("A hipotenusa do triângulo com catetos %f e %f é %f\n", c1, c2, calc_hypotenuse(c1, c2));
+  return 0;
 }
